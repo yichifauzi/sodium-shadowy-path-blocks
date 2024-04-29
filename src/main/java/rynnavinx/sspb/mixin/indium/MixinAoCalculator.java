@@ -26,7 +26,7 @@ public class MixinAoCalculator {
     @Redirect(method = "compute", at = @At(value = "FIELD", target = "Llink/infra/indium/Indium;AMBIENT_OCCLUSION_MODE:Llink/infra/indium/renderer/aocalc/AoConfig;", opcode = Opcodes.GETSTATIC), remap = false)
     private AoConfig redirectAoMode(){
         if(blockInfo.blockState.getBlock() instanceof DirtPathBlock){
-            return AoConfig.EMULATE;
+            return AoConfig.VANILLA;
         }
         else{
             return Indium.AMBIENT_OCCLUSION_MODE;
