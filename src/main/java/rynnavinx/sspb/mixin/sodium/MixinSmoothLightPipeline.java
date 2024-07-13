@@ -4,7 +4,6 @@ import me.jellysquid.mods.sodium.client.model.light.data.LightDataAccess;
 import me.jellysquid.mods.sodium.client.model.light.smooth.SmoothLightPipeline;
 import me.jellysquid.mods.sodium.client.model.light.data.QuadLightData;
 
-import net.minecraft.block.DirtPathBlock;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DirtPathBlock;
 
 import rynnavinx.sspb.reflection.ReflectionAoFaceData;
 import rynnavinx.sspb.reflection.ReflectionSmoothLightPipeline;
@@ -60,7 +60,7 @@ public class MixinSmoothLightPipeline {
 		BlockState blockState = lightCache.getWorld().getBlockState(pos);
 		boolean onlyAffectPathBlocks = SSPBClientMod.options().onlyAffectPathBlocks;
 
-		if((!onlyAffectPathBlocks && blockState.isTranslucent(lightCache.getWorld(), pos)) ||
+		if((!onlyAffectPathBlocks && blockState.isTransparent(lightCache.getWorld(), pos)) ||
 				(onlyAffectPathBlocks && blockState.getBlock() instanceof DirtPathBlock)){
 
 			// Mix between sodium inset lighting (default applyInsetPartialFaceVertex) and vanilla-like inset lighting (applyAlignedPartialFaceVertex).
@@ -112,7 +112,7 @@ public class MixinSmoothLightPipeline {
 		BlockState blockState = lightCache.getWorld().getBlockState(pos);
 		boolean onlyAffectPathBlocks = SSPBClientMod.options().onlyAffectPathBlocks;
 
-		if(!onlyAffectPathBlocks && blockState.isTranslucent(lightCache.getWorld(), pos)){
+		if(!onlyAffectPathBlocks && blockState.isTransparent(lightCache.getWorld(), pos)){
 
 			// Mix between sodium inset lighting (default applyInsetPartialFaceVertex) and vanilla-like inset lighting (applyAlignedPartialFaceVertex).
 			float shadowyness = SSPBClientMod.options().getShadowyness(); // vanilla-like inset lighting percentage
