@@ -1,0 +1,9 @@
+{
+  "sspb.pages.sspb_page.name":"SSPB",
+  "sspb.options.shadowyness.name":"陰影",
+  "sspb.options.shadowyness.tooltip":"調整非完整方塊上的原版陰影強度\n\n0% - 無 (Sodium 默認)\n85% - 默認\n100% - 最大\n\n僅適用於沒有修改渲染的方塊。",
+  "sspb.options.onlyaffectpathblocks.name":"僅應用於土徑",
+  "sspb.options.onlyaffectpathblocks.tooltip":"原版 Minecraft 中導致土徑的陰影錯誤實際上會影響所有非流體和非完整方塊\n\n默認情況下，SSPB 也會對所有非流體非完整方塊應用類似原版的平滑光照。啟用此功能將僅應用在土徑。",
+  "sspb.options.vanillapathblocklighting.name":"為土徑使用原版光照",
+  "sspb.options.vanillapathblocklighting.tooltip":"啟用時，土徑的光照將使用原版精度算法進行渲染，而不是 Sodium 的修改版本。\n\n此選項將停用陰影滑桿對土徑的效果控制。\n\n此選項要求安裝 Indium 和 Fabric API。此外，如果您有一個以自訂方式渲染土徑的模組（例如連接紋理），此選項將仍會被停用，儘管效果始終打開。"
+}
