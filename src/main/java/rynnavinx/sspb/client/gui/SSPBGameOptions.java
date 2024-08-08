@@ -42,6 +42,7 @@ public class SSPBGameOptions {
         vanillaPathBlockLighting = false;
     }
 
+
     public void updateShadowyness(int shadowynessPercent){
         this.shadowynessPercent = shadowynessPercent;
 

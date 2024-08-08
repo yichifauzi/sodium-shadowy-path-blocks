@@ -15,6 +15,7 @@ public class SSPBBakedModel extends ForwardingBakedModel {
         notUsingFRAPI = !usingFRAPI;
     }
 
+
     @Override
     public boolean isVanillaAdapter() {
         return notUsingFRAPI;

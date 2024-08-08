@@ -35,6 +35,7 @@ public abstract class MixinSmoothLightPipeline {
 	@Unique
 	private static final MethodHandle sspb$getCachedFaceDataHandle;
 
+
 	static {
 		try {
 			MethodHandles.Lookup lookup = MethodHandles.lookup();
@@ -46,6 +47,7 @@ public abstract class MixinSmoothLightPipeline {
 		}
 	}
 
+
 	@Unique
 	@SuppressWarnings({"JavaLangInvokeHandleSignature", "DataFlowIssue"})
 	private AoFaceDataAccessor sspb$getCachedFaceData(BlockPos pos, Direction dir, boolean offset){
@@ -56,28 +58,27 @@ public abstract class MixinSmoothLightPipeline {
 		}
 	}
 
-
 	@Unique
 	private void sspb$applyInsetPartialFaceVertex(BlockPos pos, Direction dir, float n1d, float n2d, float[] w, int i, QuadLightData out, boolean isParallel){
 		AoFaceDataAccessor n1 = sspb$getCachedFaceData(pos, dir, false);
 
-		if(!n1.invokeHasUnpackedLightData()){
-			n1.invokeUnpackLightData();
+		if(!n1.sspb$invokeHasUnpackedLightData()){
+			n1.sspb$invokeUnpackLightData();
 		}
 
 		AoFaceDataAccessor n2 = sspb$getCachedFaceData(pos, dir, true);
 
-		if(!n2.invokeHasUnpackedLightData()){
-			n2.invokeUnpackLightData();
+		if(!n2.sspb$invokeHasUnpackedLightData()){
+			n2.sspb$invokeUnpackLightData();
 		}
 
-		float ao1 = n1.invokeGetBlendedShade(w);
-		float sl1 = n1.invokeGetBlendedSkyLight(w);
-		float bl1 = n1.invokeGetBlendedBlockLight(w);
+		float ao1 = n1.sspb$invokeGetBlendedShade(w);
+		float sl1 = n1.sspb$invokeGetBlendedSkyLight(w);
+		float bl1 = n1.sspb$invokeGetBlendedBlockLight(w);
 
-		float ao2 = n2.invokeGetBlendedShade(w);
-		float sl2 = n2.invokeGetBlendedSkyLight(w);
-		float bl2 = n2.invokeGetBlendedBlockLight(w);
+		float ao2 = n2.sspb$invokeGetBlendedShade(w);
+		float sl2 = n2.sspb$invokeGetBlendedSkyLight(w);
+		float bl2 = n2.sspb$invokeGetBlendedBlockLight(w);
 
 		float ao;
 		float sl;

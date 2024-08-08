@@ -1,7 +1,5 @@
 package rynnavinx.sspb.mixin.minecraft;
 
-import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
-
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.SpriteAtlasManager;
@@ -19,18 +17,19 @@ import rynnavinx.sspb.client.gui.SSPBGameOptionPages;
 import rynnavinx.sspb.client.render.model.SSPBBakedModel;
 
 
+// Using a mixin to do this instead of fabric api because the api that handled model wrapping changed between supported mc versions
 @Mixin(ModelLoader.class)
-public class MixinModelLoader {
+public abstract class MixinModelLoader {
 
     @Unique
     private void sspb$wrapDirtPathModel(){
         ModelLoader thisModelLoader = ((ModelLoader)(Object) this);
 
-        ModelIdentifier id = new ModelIdentifier(IdentifierAccessor.invokeInit("minecraft", "dirt_path"), "");
+        ModelIdentifier id = new ModelIdentifier(IdentifierAccessor.sspb$invokeInit("minecraft", "dirt_path"), "");
         BakedModel originalBakedModel = thisModelLoader.getBakedModelMap().get(id);
         if(originalBakedModel != null){
             // wrap if not using frapi
-            if(!(originalBakedModel instanceof FabricBakedModel) || ((FabricBakedModel) originalBakedModel).isVanillaAdapter()){
+            if(originalBakedModel.isVanillaAdapter()){
                 thisModelLoader.getBakedModelMap().replace(id, new SSPBBakedModel(originalBakedModel, SSPBClientMod.options().vanillaPathBlockLighting));
                 SSPBGameOptionPages.setVanillaPathBlockLightingOptEnabled(true);
                 SSPBClientMod.LOGGER.info("[SSPB] Option to toggle vanilla path block lighting is enabled");
@@ -51,16 +50,16 @@ public class MixinModelLoader {
      * so I'm injecting like this for compatibility reasons.
      */
 
+    // Targets the "update" method
     @SuppressWarnings({"MixinAnnotationTarget", "UnresolvedMixinReference"}) // Suppress because the method is not in this project's MC version. Compiler still complains though...
     @Inject(method = "method_18177(Lnet/minecraft/class_1060;Lnet/minecraft/class_3695;)Lnet/minecraft/class_4724;", at = @At(value = "INVOKE", target = "Ljava/util/Set;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER), require = 0)
-    // Targets the "update" method
     private void wrapDirtPathModel1_19(CallbackInfoReturnable<SpriteAtlasManager> cir){
         sspb$wrapDirtPathModel();
     }
 
+    // Targets the "bake" method
     @SuppressWarnings({"MixinAnnotationTarget", "UnresolvedMixinReference"}) // Suppress because the method is not in this project's MC version. Compiler still complains though...
     @Inject(method = "method_45876(Ljava/util/function/BiFunction;)V", at = @At(value = "INVOKE", target = "Ljava/util/Set;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER), require = 0)
-    // Targets the "bake" method
     private void wrapDirtPathModel1_19_3(CallbackInfo ci){
         sspb$wrapDirtPathModel();
     }

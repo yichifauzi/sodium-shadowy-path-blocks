@@ -3,20 +3,22 @@ package rynnavinx.sspb.mixin.sodium;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+
 @Mixin(targets = "me.jellysquid.mods.sodium.client.model.light.smooth.AoFaceData")
 public interface AoFaceDataAccessor {
-	@Invoker
-	float invokeGetBlendedShade(float[] w);
 
-	@Invoker
-	float invokeGetBlendedSkyLight(float[] w);
+	@Invoker(value = "getBlendedShade", remap = false)
+	float sspb$invokeGetBlendedShade(float[] w);
 
-	@Invoker
-	float invokeGetBlendedBlockLight(float[] w);
+	@Invoker(value = "getBlendedSkyLight", remap = false)
+	float sspb$invokeGetBlendedSkyLight(float[] w);
 
-	@Invoker
-	boolean invokeHasUnpackedLightData();
+	@Invoker(value = "getBlendedBlockLight", remap = false)
+	float sspb$invokeGetBlendedBlockLight(float[] w);
 
-	@Invoker
-	void invokeUnpackLightData();
+	@Invoker(value = "hasUnpackedLightData", remap = false)
+	boolean sspb$invokeHasUnpackedLightData();
+
+	@Invoker(value = "unpackLightData", remap = false)
+	void sspb$invokeUnpackLightData();
 }

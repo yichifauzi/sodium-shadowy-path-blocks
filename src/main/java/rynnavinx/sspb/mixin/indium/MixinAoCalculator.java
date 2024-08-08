@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 
 @Pseudo @Mixin(AoCalculator.class)
-public class MixinAoCalculator {
+public abstract class MixinAoCalculator {
 
     @Final @Shadow(remap = false)
     private BlockRenderInfo blockInfo;
