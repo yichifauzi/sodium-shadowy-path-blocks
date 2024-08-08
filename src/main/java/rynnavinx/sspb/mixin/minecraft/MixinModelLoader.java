@@ -6,7 +6,6 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.SpriteAtlasManager;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.util.Identifier;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,7 +26,7 @@ public class MixinModelLoader {
     private void sspb$wrapDirtPathModel(){
         ModelLoader thisModelLoader = ((ModelLoader)(Object) this);
 
-        ModelIdentifier id = new ModelIdentifier(new Identifier("minecraft", "dirt_path"), "");
+        ModelIdentifier id = new ModelIdentifier(IdentifierAccessor.invokeInit("minecraft", "dirt_path"), "");
         BakedModel originalBakedModel = thisModelLoader.getBakedModelMap().get(id);
         if(originalBakedModel != null){
             // wrap if not using frapi
