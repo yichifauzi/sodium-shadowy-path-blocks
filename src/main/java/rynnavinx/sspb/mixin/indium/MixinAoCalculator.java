@@ -13,7 +13,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import rynnavinx.sspb.client.SSPBClientMod;
 
 
 @Pseudo @Mixin(AoCalculator.class)
@@ -31,5 +34,15 @@ public abstract class MixinAoCalculator {
         else{
             return Indium.AMBIENT_OCCLUSION_MODE;
         }
+    }
+
+    @ModifyVariable(method = "blendedInsetFace", at = @At("STORE"), ordinal = 0)
+    private float modifyBlendedInsetFaceW1(float w1){
+        return (w1 * SSPBClientMod.options().getShadowynessCompliment()) + (SSPBClientMod.options().getShadowyness());
+    }
+
+    @ModifyVariable(method = "gatherInsetFace", at = @At("STORE"), ordinal = 0)
+    private float modifyGatherInsetFaceW1(float w1){
+        return (w1 * SSPBClientMod.options().getShadowynessCompliment()) + (SSPBClientMod.options().getShadowyness());
     }
 }
