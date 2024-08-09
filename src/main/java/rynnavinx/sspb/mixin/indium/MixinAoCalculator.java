@@ -36,12 +36,12 @@ public abstract class MixinAoCalculator {
         }
     }
 
-    @ModifyVariable(method = "blendedInsetFace", at = @At("STORE"), ordinal = 0)
+    @ModifyVariable(method = "blendedInsetFace", at = @At("STORE"), ordinal = 0, remap = false)
     private float modifyBlendedInsetFaceW1(float w1){
         return (w1 * SSPBClientMod.options().getShadowynessCompliment()) + (SSPBClientMod.options().getShadowyness());
     }
 
-    @ModifyVariable(method = "gatherInsetFace", at = @At("STORE"), ordinal = 0)
+    @ModifyVariable(method = "gatherInsetFace", at = @At("STORE"), ordinal = 0, remap = false)
     private float modifyGatherInsetFaceW1(float w1){
         return (w1 * SSPBClientMod.options().getShadowynessCompliment()) + (SSPBClientMod.options().getShadowyness());
     }
