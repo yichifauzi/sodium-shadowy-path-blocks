@@ -48,8 +48,7 @@ public abstract class MixinSmoothLightPipeline {
 	}
 
 
-	@Unique
-	@SuppressWarnings({"JavaLangInvokeHandleSignature", "DataFlowIssue"})
+	@Unique @SuppressWarnings({"JavaLangInvokeHandleSignature", "DataFlowIssue"})
 	private AoFaceDataAccessor sspb$getCachedFaceData(BlockPos pos, Direction dir, boolean offset){
 		try {
 			return (AoFaceDataAccessor) sspb$getCachedFaceDataHandle.invoke((SmoothLightPipeline) (Object) this, pos, dir, offset);
@@ -108,6 +107,7 @@ public abstract class MixinSmoothLightPipeline {
 		out.br[i] = ao;
 		out.lm[i] = getLightMapCoord(sl, bl);
 	}
+
 
 	@Redirect(method = "applyParallelFace", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/model/light/smooth/SmoothLightPipeline;applyInsetPartialFaceVertex(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;FF[FILme/jellysquid/mods/sodium/client/model/light/data/QuadLightData;)V"))
 	private void redirectParallelApplyInset(SmoothLightPipeline self, BlockPos pos, Direction dir, float n1d, float n2d, float[] w, int i, QuadLightData out){
