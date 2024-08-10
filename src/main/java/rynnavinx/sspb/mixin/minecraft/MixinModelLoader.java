@@ -27,20 +27,18 @@ public abstract class MixinModelLoader {
 
         ModelIdentifier id = new ModelIdentifier(IdentifierAccessor.sspb$invokeInit("minecraft", "dirt_path"), "");
         BakedModel originalBakedModel = thisModelLoader.getBakedModelMap().get(id);
+
         if(originalBakedModel != null){
-            // wrap if not using frapi
-            if(originalBakedModel.isVanillaAdapter()){
-                thisModelLoader.getBakedModelMap().replace(id, new SSPBBakedModel(originalBakedModel, SSPBClientMod.options().vanillaPathBlockLighting));
-                SSPBGameOptionPages.setVanillaPathBlockLightingOptEnabled(true);
-                SSPBClientMod.LOGGER.info("[SSPB] Option to toggle vanilla path block lighting is enabled");
-            }
-            else{
-                SSPBGameOptionPages.setVanillaPathBlockLightingOptEnabled(false);
-                SSPBClientMod.LOGGER.info("[SSPB] Modded dirt path rendering detected. Option to toggle vanilla path block lighting is disabled.");
+            SSPBGameOptionPages.setVanillaPathBlockLightingOptEnabled(true);
+
+            // wrap if vanilla path block lighting is on and not using frapi
+            if(SSPBClientMod.options().vanillaPathBlockLighting && originalBakedModel.isVanillaAdapter()){
+                thisModelLoader.getBakedModelMap().replace(id, new SSPBBakedModel(originalBakedModel));
             }
         }
         else{
             SSPBGameOptionPages.setVanillaPathBlockLightingOptEnabled(false);
+
             SSPBClientMod.LOGGER.error("[SSPB] Something went wrong and the dirt path model was not found. Option to toggle vanilla path block lighting is disabled.");
         }
     }

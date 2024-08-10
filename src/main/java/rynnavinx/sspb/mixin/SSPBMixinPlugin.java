@@ -24,7 +24,7 @@ public class SSPBMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if(mixinClassName.equals("rynnavinx.sspb.mixin.minecraft.MixinModelLoader")) {
             if(FabricLoader.getInstance().isModLoaded("indium")) {
-                SSPBClientMod.LOGGER.info("[SSPB] Indium detected. Option to toggle vanilla path block lighting will be enabled unless modded dirt path rendering is detected");
+                SSPBClientMod.LOGGER.info("[SSPB] Indium detected. Option to toggle vanilla path block lighting is enabled");
                 return true;
             }
             else {
