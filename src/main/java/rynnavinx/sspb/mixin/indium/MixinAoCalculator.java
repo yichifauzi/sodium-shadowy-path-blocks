@@ -40,7 +40,7 @@ public abstract class MixinAoCalculator {
     }
 
     @ModifyVariable(method = "compute", at = @At("STORE"), ordinal = 0, remap = false)
-    private AoConfig modifyAoConfig(AoConfig config){ // IntelliJ complains, but it works as expected
+    private AoConfig modifyAoConfig(AoConfig config){
         if(SSPBClientMod.options().vanillaPathBlockLighting && blockInfo.blockState.getBlock() instanceof DirtPathBlock){
             return AoConfig.VANILLA;
         }
