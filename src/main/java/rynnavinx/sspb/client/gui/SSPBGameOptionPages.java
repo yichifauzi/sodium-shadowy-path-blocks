@@ -19,8 +19,6 @@ import rynnavinx.sspb.client.gui.options.storage.SSPBOptionsStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static rynnavinx.sspb.client.SSPBClientMod.LOGGER;
-
 
 public class SSPBGameOptionPages {
 
